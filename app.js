@@ -1,6 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db'); 
-const userRoute = require('./routes/user.route');
+const userRoute = require('./routes/User.route');
 const coursesRoutes=require("./routes/course.route");
 const app = express();
 connectDB();
