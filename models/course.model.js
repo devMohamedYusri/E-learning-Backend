@@ -17,10 +17,7 @@ const courses = new Schema({
     price: {
         type: Number 
     },
-    instructorId: {
-        type: String,
-        required: true
-    },
+    instructor: { type: Schema.Types.ObjectId, ref: "User" }, // Refers to the instructor 
     category: {
         type: String
     }
