@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db'); 
 const dotenv = require('dotenv').config()
 // const morgan = require("morgan")
+const cors = require('cors');
 const studentRoute = require("./routes/student.route")
 const userRoute = require('./routes/User.route');
 const coursesRoutes=require("./routes/course.route");
