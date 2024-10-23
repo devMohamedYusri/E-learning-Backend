@@ -56,22 +56,34 @@ class coursesController {
     }
   }
 
-  async updateCourse(req, res) {
-    const id = req.params.id;
-    const course = req.body;
-    const courses = await getAll();
-    const exist = courses.find((course) => course.id == id);
-    if (exist) {
-      if (id && course) {
-        await updateById(id, course);
-        res.send("course updated successfully ");
-      } else {
-        res.send("id and course data needed for update");
-      }
-    } else {
-      res.json("course doesn't exist");
+async updateCourse(req, res) {
+  try {
+    const { id } = req.params; // Get the course ID from the URL params
+    const updatedCourseData = req.body; // Get the updated course data from the request body
+
+    if (!id || !updatedCourseData) {
+      return res.status(400).json({ message: 'Course ID and updated data are required.' });
     }
+
+    // Find the course by ID
+    const course = await Course.findById(id);
+
+    if (!course) {
+      return res.status(404).json({ message: "Course doesn't exist." });
+    }
+
+    // Update the course
+    const updatedCourse = await Course.findByIdAndUpdate(id, updatedCourseData, { new: true });
+
+    return res.status(200).json({
+      message: 'Course updated successfully.',
+      course: updatedCourse,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'An error occurred while updating the course.' });
   }
+}
 
   async deleteCourse(req, res) {
     const id = req.params.id;
