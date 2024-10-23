@@ -20,4 +20,13 @@ router.delete(
   coursesController.deleteCourse
 );
 
+// GET /instructors/:instructorId/courses
+router.get(
+  "/instructors/:instructorId/courses",
+  auth,
+  role("instructor"),
+  coursesController.getInstructorCourses
+);
+
+
 module.exports=router;
