@@ -9,6 +9,7 @@ const Users = new Schema({
   email: {
     type: String,
     required: true,
+    unique: [true, "this email used before"],
   },
   password: {
     type: String,
@@ -19,8 +20,15 @@ const Users = new Schema({
     enum: ["student", "instructor"],
     default: "student",
   },
-//   enrolledCourses: [{ type: Schema.Types.ObjectId, ref: "Course" }], // For students
-//   createdCourses: [{ type: Schema.Types.ObjectId, ref: "Course" }], // For instructors
+  enrolledCourses: [{ 
+    type: Schema.Types.ObjectId, 
+    ref: 'Course' 
+  }],
+  progress: [{
+    courseId: { type: Schema.Types.ObjectId, ref: 'Course' },
+    completedLessons: { type: Number, default: 0 },
+  }]
+
 });
 
 module.exports = mongoose.model("Users", Users);

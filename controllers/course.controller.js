@@ -16,7 +16,7 @@ class coursesController {
   // Add a new course (Instructor-specific)
   async addCourse (req, res) {
   try {
-    const { name, description, rate, price, category } = req.body;
+    const { name, description, rate, price, category, lessons} = req.body;
     const instructorId = req.user.id; // Extracted from JWT token (middleware)
 
     // Check if a course with the same name exists
@@ -32,7 +32,8 @@ class coursesController {
       rate,
       price,
       category,
-      instructor: instructorId // Add instructor's ID from token
+      instructor: instructorId, // Add instructor's ID from token
+      lessons
     });
 
     // Save the course

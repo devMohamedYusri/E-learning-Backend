@@ -40,7 +40,7 @@ exports.register = async (req, res) => {
       { expiresIn: "1h" }, // Token valid for 1 hour
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        res.json({ token, user });
       }
     );
   } catch (err) {
@@ -81,7 +81,7 @@ exports.login = async (req, res) => {
       { expiresIn: "1h" },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        res.json({ token, user });
       }
     );
   } catch (err) {
