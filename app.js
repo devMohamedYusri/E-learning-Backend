@@ -10,9 +10,14 @@ connectDB();
 
 app.use(express.json());
 
+// Use the cors middleware
+app.use(cors());
+
+// API routes
 app.use("/api",studentRoute);
 app.use("/api/users",userRoute);
 app.use('/api/courses',coursesRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
