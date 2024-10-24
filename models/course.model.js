@@ -1,6 +1,17 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema; 
 
+const lessonSchema = new Schema({
+    title: {
+      type: String,
+      required: true,
+    },
+    videoUrl: {
+      type: String,
+      required: true,
+    },
+});
+
 const Course = new Schema({
     name: {
         type: String,
@@ -21,9 +32,10 @@ const Course = new Schema({
     category: {
         type: String
     },
-    lessons: {
-        type: Number, // Total number of lessons
-    },
+    thumbnailUrl: {
+        type: String, // URL for the course thumbnail
+      },
+      lessons: [lessonSchema], // Array of lessons
 });
 
 module.exports = mongoose.model("Course", Course);

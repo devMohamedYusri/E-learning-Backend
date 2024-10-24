@@ -1,12 +1,23 @@
 const coursesController = require("../controllers/course.controller.js");
 const auth = require("../middleware/auth");
 const role = require("../middleware/role");
-const express=require("express");
-const router=express.Router();
+const upload = require("../middleware/upload"); // Multer middleware
+const express = require("express");
+const router = express.Router();
 
-router.get("/All",coursesController.getAllCourses);
-router.get("/course/:id",coursesController.getCourse);
-router.post("/add", auth, role("instructor"), coursesController.addCourse);
+router.get("/All", coursesController.getAllCourses);
+router.get("/course/:id", coursesController.getCourse);
+router.post(
+  "/add",
+  auth,
+  role("instructor"),
+  upload.fields([
+    { name: "thumbnail", maxCount: 1 }, // Course thumbnail
+    { name: "lesson_0_video", maxCount: 1 }, // First lesson video
+    { name: "lesson_1_video", maxCount: 1 }, // Second lesson video, and so on
+  ]),
+  coursesController.addCourse
+);
 router.put(
   "/update/:id",
   auth,
@@ -28,5 +39,4 @@ router.get(
   coursesController.getInstructorCourses
 );
 
-
-module.exports=router;
+module.exports = router;
